@@ -1,6 +1,17 @@
 <html>
 
 <head>
+
+  <script type="text/javascript" src="animator.js"></script>
+  <script type="text/javascript">
+     addAnimation("matejNahoru","matej", "matejDolu", 200, -20,
+         new Array("images/matejA.gif", 300, 40, "images/matejB.gif", 300, 10),
+         0, false);  
+     addAnimation("matejDolu","matej","matejNahoru", 200, -20,
+         new Array("images/matejA.gif", 100, 50, "images/matejB.gif", 100, 50),
+         0, true);  
+  </script> 
+
 </head>
 
 <body style="background-color:#66d9ff; font-family: 'Comic Sans MS', 'Sand CE', fantasy">
@@ -158,7 +169,10 @@ Tak vám některá dobrodružství ukážu...
 
 <div style="width:690px; float:right" align="left">
 
-<!-- hezký, ale jak do toho ještě budu psát? -->
+<div>
+
+<img id="matej" src="images/matejA.gif" style="margin-top:-195px; position:relative; left:595px;top:150px" width="150px">
+
 <div><img src="layout/game-frame-top.png"></div>
 
 <div style="background:url(layout/game-frame-body.png) repeat-y">
@@ -167,14 +181,21 @@ Tak vám některá dobrodružství ukážu...
 <h1 style="margin-top:0px">L E Z E M E</h1> <!-- margin, nahoře mi to rozbíjelo rámeček -->
 
 <div align="center">
-
 <img src="images/mikroLezeni1.jpg">
 <img src="images/mikroLezeni2.jpg">
-
 </div>
 
 <p>
-Když nemusíme do školy, nejspíš nás najdete ve skalách.
+Když někdo nemusí do školy, nejspíš ho najdete ve skalách.
+
+<div align="center">
+<img src="images/caraZivota.jpg">
+<img src="images/mikroLezeni3.jpg">
+</div>
+
+<p>
+Já taky nemusím do školy, takže lezu...
+
 
 <p style="margin-bottom:0px"><!-- margin, dole mi to rozbíjelo rámeček -->
 Copak existuje lepší věc, než lezení?
@@ -184,7 +205,7 @@ Copak existuje lepší věc, než lezení?
 
 <div style="margin-bottom:10px"><img src="layout/game-frame-bottom.png"></div>
 
-
+</div>
 
 
 
@@ -221,6 +242,10 @@ Copak existuje lepší varianta, než na kolech?
 </div>
 
 </div>
+
+<script type="text/javascript">
+  initAnimations();
+</script>
 
 </body>
 
