@@ -25,11 +25,11 @@
                  true ... moving down, teda true pokud je to pohyb směrem dolů
                  false .. není moving down, takže moving up, takže šplh nahoru. Proto matejNahoru má false a matejDolu má true
      */
-     addAnimation("matejNahoru","matej", "matejDolu", 200, -200,
-         new Array("images/matejA.gif", 300, 40, "images/matejB.gif", 300, 10),
+     addAnimation("Nahoru","matej", "Dolu", 200, -200,
+         new Array("images/TondaA.gif", 300, 40, "images/TondaB.gif", 300, 10),
          0, false);  
-     addAnimation("matejDolu","matej","matejNahoru", 200, -200,
-         new Array("images/matejA.gif", 100, 50, "images/matejB.gif", 100, 50),
+     addAnimation("Dolu","matej","Nahoru", 200, -200,
+         new Array("images/TondaA.gif", 100, 50, "images/TondaB.gif", 100, 50),
          0, true);  
   </script> 
 
@@ -52,9 +52,17 @@
 <div align="center">
 
 <div style="width:1093px">
-<h1 style="font-size:70">Bébuláci - ZATÍM PRÁZDNÉ</h1>
-<h2 style="font-size:45; margin-top:-20px">Sourozenci</h2>
 
+<div>
+ <div style="color: #ffffcc">
+  <h1 style="font-size:70">Bébuláci</h1>
+  <h2 style="font-size:45; margin-top:-20px">Sourozenci </h2>
+ </div>
+ <div style="margin-top:-231px; margin-left:3px">
+  <h1 style="font-size:70">Bébuláci</h1>
+  <h2 style="font-size:45; margin-top:-20px">Sourozenci</h2>
+ </div>
+</div>
 
 <!-- bílý font -->
 <div style="color: #ff6">
@@ -217,7 +225,7 @@ Tak vám některá dobrodružství ukážu...
   obrázek se umístí stylem position: relative; left:595px; top:150px ... relative jako že se to počítá relativně k tomu divu, co teď jsem
   a left, top je umístění o kolik se to má hejbnout
 -->
-<img id="matej" src="images/matejA.gif" style="position: relative; left:595px; top:150px" width="150px">
+<img id="matej" src="images/TondaA.gif" style="position: relative; left:589px; top:150px" width="150px">
 
 <div><img src="layout/game-frame-top.png"></div>
 
@@ -284,6 +292,10 @@ Copak existuje lepší varianta, než na kolech?
 </div>
 
 </div> <!-- tohle je ta barva fontu -->
+
+</div>
+
+</div>
 
 </div>
 
