@@ -4,10 +4,27 @@
 
   <script type="text/javascript" src="animator.js"></script>
   <script type="text/javascript">
-     addAnimation("matejNahoru","matej", "matejDolu", 200, -20,
+     /* Animace se nahoře přepne na klouzání dolů a dole přepne na šplhání nahoru, proto jsou dvě a každá má jako první parametr svoje id
+        Parametry postupně
+           idAnimace   ..... nahoru jedna, dolů druhá
+           idTaguVTomHtml .. kam si umístím obrázek v tom HTML, tak mu dám id="to co mám v tomhle parametru", použil jsem "matej"
+           idAnimaceKamSePřepnoutNaKonci ... nahoře nebo dole se musím přepnout ze šplhu na klouzání a nebo z klouzání na šplhání
+           pixelyJednohoKonce
+           pixelyDruhéhoKonce ... musí se vyzkoušet, pro obrázek jak já šplhám je to asi 200 a -200
+          Potom je POLE, neboli Array, kde jsou obrázky, které se střídají. Může jich být víc, já jsem se vyfotil jen na dvě, aby to bylo vtipně trhaný.
+           Postupně jdou: 
+              cestaKObrázku, dobaZaKolikSeMáObrázekPřepnout v milisekundách, skokVPixelích o kolik se má po uplynutí těch milisekund obrázek posunout
+           a hned potom totéž ke druhému obrázku, program to pak postupně prochází
+          A na konci je ještě:
+           0 ... vždycky nula, kterou si pak program sám přepočítá
+           md .. typu BOOLEAN jako v Javě, i když tohle je JavaScript, který říká
+                 true ... moving down, teda true pokud je to pohyb směrem dolů
+                 false .. není moving down, takže moving up, takže šplh nahoru. Proto matejNahoru má false a matejDolu má true
+     */
+     addAnimation("matejNahoru","matej", "matejDolu", 200, -200,
          new Array("images/matejA.gif", 300, 40, "images/matejB.gif", 300, 10),
          0, false);  
-     addAnimation("matejDolu","matej","matejNahoru", 200, -20,
+     addAnimation("matejDolu","matej","matejNahoru", 200, -200,
          new Array("images/matejA.gif", 100, 50, "images/matejB.gif", 100, 50),
          0, true);  
   </script> 
@@ -32,7 +49,7 @@
 
 <div style="width:1093px">
 <h1 style="font-size:70">Bébuláci</h1>
-<h2 style="font-size:45; margin-top:-20px">Rodinka</h2>
+<h2 style="font-size:45; margin-top:-20px">Matěj</h2>
 
 <!-- bílý font -->
 <div style="color: #ff6">
@@ -193,9 +210,13 @@ Tak vám některá dobrodružství ukážu...
 
 <div style="width:690px; float:right" align="left">
 
-<div>
+<div style="margin-top:-195px">
 
-<img id="matej" src="images/matejA.gif" style="margin-top:-195px; position:relative; left:595px;top:150px" width="150px">
+<!-- Hrozný umísťování obrázku, který se pak posouvá programem od táty. 
+  obrázek se umístí stylem position: relative; left:595px; top:150px ... relative jako že se to počítá relativně k tomu divu, co teď jsem
+  a left, top je umístění o kolik se to má hejbnout
+-->
+<img id="matej" src="images/matejA.gif" style="position: relative; left:595px; top:150px" width="150px">
 
 <div><img src="layout/game-frame-top.png"></div>
 
