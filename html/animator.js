@@ -77,7 +77,10 @@ function animate(animIx)
       newTop = anim.miny;
       // is there another animation to continue with?
       var newIx = nextAnimationIx(anim);
-      if (newIx>=0) setTimeout("animate(" + newIx + ")", timeout);
+      if (newIx>=0) {
+          animations[newIx].cur = 0;
+          setTimeout("animate(" + newIx + ")", timeout);
+      }
     }
     else setTimeout("animate(" + animIx + ")", timeout);
     ele.style.top = newTop + "px";
