@@ -13,22 +13,30 @@
            idAnimace   ..... nahoru jedna, dolů druhá
            idTaguVTomHtml .. kam si umístím obrázek v tom HTML, tak mu dám id="to co mám v tomhle parametru", použil jsem "matej"
            idAnimaceKamSePřepnoutNaKonci ... nahoře nebo dole se musím přepnout ze šplhu na klouzání a nebo z klouzání na šplhání
-           pixelyJednohoKonce
-           pixelyDruhéhoKonce ... musí se vyzkoušet, pro obrázek jak já šplhám je to asi 200 a -200
+           limitDosaženíKonce ... liší se pro animaci nahoru a dolů
           Potom je POLE, neboli Array, kde jsou obrázky, které se střídají. Může jich být víc, já jsem se vyfotil jen na dvě, aby to bylo vtipně trhaný.
            Postupně jdou: 
               cestaKObrázku, dobaZaKolikSeMáObrázekPřepnout v milisekundách, skokVPixelích o kolik se má po uplynutí těch milisekund obrázek posunout
            a hned potom totéž ke druhému obrázku, program to pak postupně prochází
-          A na konci je ještě:
-           0 ... vždycky nula, kterou si pak program sám přepočítá
-           md .. typu BOOLEAN jako v Javě, i když tohle je JavaScript, který říká
-                 true ... moving down, teda true pokud je to pohyb směrem dolů
-                 false .. není moving down, takže moving up, takže šplh nahoru. Proto matejNahoru má false a matejDolu má true
      */
      addAnimation(new AnimationUp("Nahoru","matej", "Dolu", 230,
          new Array("images/TondaA.gif", 300, 40, "images/TondaB.gif", 300, 10)));  
      addAnimation(new AnimationDown("Dolu","matej","Nahoru", -230,
-         new Array("images/TondaA.gif", 100, 1,"images/TondaA.gif", 100, 3,"images/TondaA.gif", 100, 5,"images/TondaA.gif", 100, 10,"images/TondaA.gif", 100, 20, "images/TondaA.gif", 100, 30,"images/TondaA.gif", 100, 40, "images/TondaA.gif", 100, 50,"images/TondaA.gif", 100, 60, "images/TondaA.gif", 100, 70,"images/TondaA.gif", 100, 80, "images/TondaA.gif", 100, 90, "images/TondaA.gif", 100, 110)));  
+         new Array("images/TondaA.gif", 100, 1,
+                   "images/TondaA.gif", 100, 2,
+                   "images/TondaA.gif", 100, 300*0.1*0.1,  // s=(1/2)*g*t^2, ds = (1/2)*g*[(t+0.1)^2-t^2] = (1/2)*g*0.1*(2*t+0.1) metrů
+                   "images/TondaA.gif", 100, 300*0.1*0.3,  // my máme pixely, takže to bude něčím ještě vynásobeno, experimentálně místo 0.1*(2*t+0.1) dáme 300
+                   "images/TondaA.gif", 100, 300*0.1*0.5,
+                   "images/TondaA.gif", 100, 300*0.1*0.7,
+                   "images/TondaA.gif", 100, 300*0.1*0.9, 
+                   "images/TondaA.gif", 100, 300*0.1*1.1,
+                   "images/TondaA.gif", 100, 300*0.1*1.3, 
+                   "images/TondaA.gif", 100, 300*0.1*1.5,
+                   "images/TondaA.gif", 100, 300*0.1*1.7, 
+                   "images/TondaA.gif", 100, 300*0.1*1.9,
+                   "images/TondaA.gif", 100, 300*0.1*2.1, 
+                   "images/TondaA.gif", 100, 300*0.1*2.3, 
+                   "images/TondaA.gif", 100, 300*0.1*2.5)));
   </script> 
 
 </head>
