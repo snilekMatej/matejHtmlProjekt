@@ -26,7 +26,9 @@ class Animation {
   }
   
   nextAnimation() {
-    return animations[this.id][this.next];
+    var nextAnim = animations[this.id][this.next];
+    nextAnim.cur=this.animCount-1;
+    return nextAnim;
   }
   
   updateTimeout(newAnim) {
