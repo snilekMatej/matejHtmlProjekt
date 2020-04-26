@@ -25,12 +25,12 @@
                  true ... moving down, teda true pokud je to pohyb směrem dolů
                  false .. není moving down, takže moving up, takže šplh nahoru. Proto matejNahoru má false a matejDolu má true
      */
-     addAnimation("Nahoru","matej", "Dolu", 230, -230,
-         new Array("images/TondaA.gif", 300, 40, "images/TondaB.gif", 300, 10),
-         0, false);  
-     addAnimation("Dolu","matej","Nahoru", 230, -230,
-         new Array("images/TondaA.gif", 100, 50, "images/TondaB.gif", 100, 50),
-         0, true);  
+     addAnimation(new AnimationUp("Nahoru","matej", "Dolu", 230,
+         new Array("images/TondaA.gif", 300, 40, 
+                   "images/TondaB.gif", 300, 10)));  
+     addAnimation(new AnimationDown("Dolu","matej","Nahoru", -230,
+         new Array("images/TondaA.gif", 100, 50, 
+                   "images/TondaB.gif", 100, 50)));  
   </script> 
 
 </head>

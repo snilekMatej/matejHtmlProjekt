@@ -1,104 +1,113 @@
-function Animation(name, id, next, miny, maxy, pic, cur, md)
-{
-this.name=name;
-this.id=id;
-this.next=next;
-this.miny=miny;
-this.maxy=maxy;
-this.pic=pic;
-this.cur=cur;
-this.movingDown=md;
-this.runIt=true;
-};
-
-animations=new Array();
-
-function addAnimation(name, id, next, miny, maxy, pic, cur, md)
-{
-  var newix = animations.length;
-  animations[newix] = new Animation(name, id, next, miny, maxy, pic, cur, md);
-  for (i=0; i<newix; i++)
-  {
-    if (animations[i].id==id)
-    {
-      animations[newix].runIt = false; // there is another animation already added for this id
-      break;
-    }
+class Animation { 
+  constructor(name, idOfImgTag, next, targetTop, pic, cur, md) {
+    this.name = name;
+    this.id = idOfImgTag;
+    this.next = next;
+    this.targetTop = targetTop;
+    this.pic = pic;
+    this.cur = cur;
+    this.movingDown = md;
+    this.animCount = pic.length / 3;
   }
+  
+  timeout() {
+    return this.pic[3*this.cur+1];
+  }
+
+  movePx() {
+    return this.pic[3*this.cur+2];
+  }
+  
+  shiftAnim() {
+    this.cur = (this.cur+1) % this.animCount;
+    var ele = document.getElementById(this.id);
+    ele.src = this.pic[3*this.cur];
+    return parseInt(ele.style.top) + this.movePx();
+  }
+  
+  nextAnimation() {
+    return animations[this.id][this.next];
+  }
+  
+  updateTimeout(newAnim) {
+    // is there another animation to continue with?
+    if (newAnim != undefined) setTimeout(function(){ newAnim.animate() }, this.timeout());
+  }
+}
+
+var animations = {}
+
+class AnimationUp extends Animation {
+  constructor(name, idOfImgTag, next, targetTop, pic) {
+    super(name, idOfImgTag, next, targetTop, pic, 0, false);
+  }
+  
+  movePx() {
+    return -super.movePx();
+  }
+  
+  animate()
+  {
+    var newTop = this.shiftAnim();
+    if (newTop < this.targetTop) 
+    { 
+      newTop = this.targetTop;
+      this.updateTimeout(this.nextAnimation());
+    }
+    else this.updateTimeout(this);
+    
+    document.getElementById(this.id).style.top = newTop + "px";
+  }
+}
+
+class AnimationDown extends Animation {
+  constructor(name, idOfImgTag, next, targetTop, pic) {
+    super(name, idOfImgTag, next, targetTop, pic, 0, true);
+  }
+  
+  movePx() {
+    return super.movePx();
+  }
+  
+  animate() {
+    var newTop = this.shiftAnim();
+    var ele = document.getElementById(this.id);
+
+    var parentNodeHeight = ele.parentNode.clientHeight;
+    if (newTop > parentNodeHeight+this.targetTop) 
+    { 
+      newTop = parentNodeHeight+this.targetTop;
+      this.updateTimeout(this.nextAnimation());
+    }
+    else this.updateTimeout(this);
+
+    ele.style.top = newTop + "px";
+  }      
+}
+
+var animations = {};
+
+var uninitializedAnimations = [];
+
+function addAnimation(newAnim) {
+  var anim = animations[newAnim.id];
+  if (anim == undefined) {
+    anim = animations[newAnim.id] = {}
+    uninitializedAnimations.push(newAnim);
+  }
+  anim[newAnim.name] = newAnim;
 }
 
 /* HTML CODE SHOULD CONTAIN CODE LIKE
-addAnimation("myFredAnimation","fred", "fred2", 0, -100,
-         new Array("images/fred1.png", 200, 10, "images/fred2.png", 300, 0),
-         0, true );
+     addAnimation(new AnimationUp("Nahoru","matej", "Dolu", 230,
+         new Array("images/TondaA.gif", 300, 40, 
+                   "images/TondaB.gif", 300, 10)));  
 */
 
-function nextAnimationIx(anim)
-{
-  for (i=0; i<animations.length; i++)
-  {
-    if (animations[i].name==anim.next)
-    {
-      return i;
-    }
-  }
-  return -1;
-}
-
-var animationsState = new Array();
-function animate(animIx)
-{
-  var anim = animations[animIx];
-  var animCount = anim.pic.length / 3;
-  anim.cur = (anim.cur+1) % animCount;
-  var timeout = anim.pic[3*anim.cur+1];
-  var movePx = anim.pic[3*anim.cur+2];
-  var ele = document.getElementById(anim.id);
-  ele.src = anim.pic[3*anim.cur];
-  if (anim.movingDown)
-  {
-    var newTop = parseInt(ele.style.top) + movePx;
-    var parentNodeHeight = ele.parentNode.clientHeight;
-    if (newTop > parentNodeHeight+anim.maxy) 
-    { 
-      newTop = parentNodeHeight+anim.maxy;
-      // is there another animation to continue with?
-      var newIx = nextAnimationIx(anim);
-      if (newIx>=0) setTimeout("animate(" + newIx + ")", timeout);
-    }
-    else setTimeout("animate(" + animIx + ")", timeout);
-    ele.style.top = newTop + "px";
-  }
-  else
-  {
-    var newTop = parseInt(ele.style.top) - movePx;
-    if (newTop < anim.miny) 
-    { 
-      newTop = anim.miny;
-      // is there another animation to continue with?
-      var newIx = nextAnimationIx(anim);
-      if (newIx>=0) setTimeout("animate(" + newIx + ")", timeout);
-    }
-    else setTimeout("animate(" + animIx + ")", timeout);
-    ele.style.top = newTop + "px";
-  }
-}
-
-var animateInitialized = false;
 function initAnimations()
 {
-  if (!animateInitialized)
-  {
-    animateInitialized = true;
-
-    for (i=0; i<animations.length; i++)
-    {
-      if (animations[i].runIt)
-      {
-        setTimeout("animate(" + i +")", animations[i].pic[1] );
-      }
-    }
-  }
+  uninitializedAnimations.forEach((anim) => anim.updateTimeout(anim));
+  uninitializedAnimations = [];
 }
 
 /*
