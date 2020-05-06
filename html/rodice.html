@@ -13,24 +13,16 @@
            idAnimace   ..... nahoru jedna, dolů druhá
            idTaguVTomHtml .. kam si umístím obrázek v tom HTML, tak mu dám id="to co mám v tomhle parametru", použil jsem "matej"
            idAnimaceKamSePřepnoutNaKonci ... nahoře nebo dole se musím přepnout ze šplhu na klouzání a nebo z klouzání na šplhání
-           pixelyJednohoKonce
-           pixelyDruhéhoKonce ... musí se vyzkoušet, pro obrázek jak já šplhám je to asi 200 a -200
+           limitDosaženíKonce ... liší se pro animaci nahoru a dolů
           Potom je POLE, neboli Array, kde jsou obrázky, které se střídají. Může jich být víc, já jsem se vyfotil jen na dvě, aby to bylo vtipně trhaný.
            Postupně jdou: 
               cestaKObrázku, dobaZaKolikSeMáObrázekPřepnout v milisekundách, skokVPixelích o kolik se má po uplynutí těch milisekund obrázek posunout
            a hned potom totéž ke druhému obrázku, program to pak postupně prochází
-          A na konci je ještě:
-           0 ... vždycky nula, kterou si pak program sám přepočítá
-           md .. typu BOOLEAN jako v Javě, i když tohle je JavaScript, který říká
-                 true ... moving down, teda true pokud je to pohyb směrem dolů
-                 false .. není moving down, takže moving up, takže šplh nahoru. Proto matejNahoru má false a matejDolu má true
      */
-     addAnimation("matejNahoru","matej", "matejDolu", 200, -200,
-         new Array("images/matejA.gif", 300, 40, "images/matejB.gif", 300, 10),
-         0, false);  
-     addAnimation("matejDolu","matej","matejNahoru", 200, -200,
-         new Array("images/matejA.gif", 100, 50, "images/matejB.gif", 100, 50),
-         0, true);  
+     addAnimation(new AnimationUp("matejNahoru","matej", "matejDolu", 200,
+         new Array("images/matejA.gif", 300, 40, "images/matejB.gif", 300, 10)));  
+     addAnimation(new AnimationDown("matejDolu","matej","matejNahoru", -200,
+         new Array("images/matejA.gif", 100, 50, "images/matejB.gif", 100, 50)));  
   </script> 
 
 </head>
